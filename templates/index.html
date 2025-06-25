@@ -3,38 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <title>Automated Metadata Generator</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(to right, #e0f7fa, #e8eaf6);
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
             margin: 0;
             padding: 0;
-            color: #333;
         }
 
         .container {
-            max-width: 650px;
-            margin: 60px auto;
+            width: 500px;
+            margin: 100px auto;
             background: #fff;
-            padding: 40px;
-            border-radius: 16px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-            border: 2px solid #c5cae9;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
             text-align: center;
-            color: #3949ab;
-            font-size: 28px;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 22px;
         }
 
         p.description {
             text-align: center;
-            font-size: 15px;
-            color: #555;
-            margin-bottom: 30px;
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
         }
 
         form {
@@ -42,38 +38,28 @@
         }
 
         input[type="file"] {
-            margin: 20px auto;
             display: block;
-            font-size: 14px;
+            margin: 10px auto 20px auto;
         }
 
         button {
-            background-color: #5c6bc0;
-            color: white;
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
             border: none;
-            padding: 12px 26px;
-            font-size: 15px;
-            border-radius: 8px;
+            border-radius: 4px;
             cursor: pointer;
-            transition: background 0.2s ease;
         }
 
         button:hover {
-            background-color: #3f51b5;
-        }
-
-        .note {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #444;
-            text-align: center;
+            background-color: #555;
         }
 
         footer {
-            margin-top: 60px;
-            font-size: 12px;
             text-align: center;
-            color: #777;
+            margin-top: 50px;
+            font-size: 12px;
+            color: #888;
         }
     </style>
 </head>
@@ -81,21 +67,17 @@
     <div class="container">
         <h1>Automated Metadata Generator</h1>
         <p class="description">
-            Upload any unstructured document (PDF, DOCX, TXT, or even scanned images) to get AI-generated title, summary, and keywords.
+            Upload your document (PDF, DOCX, TXT, or scanned image) to get AI-generated metadata.
         </p>
 
-        <form method="post" enctype="multipart/form-data">
+        <form method="post" enctype="multipart/form-data" action="/">
             <input type="file" name="file" accept=".pdf,.docx,.txt,.jpg,.jpeg,.png" required>
             <button type="submit">Generate Metadata</button>
         </form>
-
-        <div class="note">
-         
-        </div>
     </div>
 
     <footer>
-        Developed by Sathvika  • Powered by NLP, OCR, and Semantic AI
+        Developed by Sathvika • Metadata Generator
     </footer>
 </body>
 </html>

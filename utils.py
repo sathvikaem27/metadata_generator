@@ -3,6 +3,8 @@ import os
 import fitz  # PyMuPDF
 import docx
 import pytesseract
+pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+
 from PIL import Image
 import nltk
 from transformers import pipeline
@@ -65,7 +67,7 @@ def extract_text(file_path):
                         text_list.append(page_text)
                     else:
                         # 🧠 OCR fallback if no extractable text
-                        pix = page.get_pixmap(dpi=300)
+                        pix = page.get_pixmap(matrix=fitz.Matrix(3, 3)) 
                         img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
                         ocr_text = pytesseract.image_to_string(img)
                         text_list.append(ocr_text)

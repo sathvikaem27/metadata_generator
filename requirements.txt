@@ -1,0 +1,12 @@
+Flask
+python-docx
+PyMuPDF
+pytesseract
+Pillow
+nltk
+transformers
+torch
+keybert
+sentence-transformers
+scikit-learn
+werkzeug
