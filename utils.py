@@ -50,10 +50,10 @@ COMMON_NON_CONTENT_PATTERNS = [
 
 # ----------- EXTRACT TEXT FROM FILE (Your original function is solid) -----------
 def extract_text(file_path):
-    """Extracts raw text from various file formats, including OCR for image-based PDFs."""
+    """Extracts raw text from PDFs, DOCX, TXT, and scanned images (OCR fallback)."""
     if not os.path.exists(file_path):
         raise FileNotFoundError(f"File not found at: {file_path}")
-
+        
     ext = os.path.splitext(file_path)[1].lower()
     text = ""
 
@@ -62,29 +62,35 @@ def extract_text(file_path):
             with fitz.open(file_path) as doc:
                 text_list = []
                 for page in doc:
-                    page_text = page.get_text()
-                    if page_text.strip():  # Extracted text is available
+                    page_text = page.get_text().strip()
+                    if page_text:
                         text_list.append(page_text)
                     else:
-                        # 🧠 OCR fallback if no extractable text
-                        pix = page.get_pixmap(matrix=fitz.Matrix(3, 3)) 
-                        img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
-                        ocr_text = pytesseract.image_to_string(img)
+                        # Use lower dpi & grayscale image for lightweight OCR
+                        pix = page.get_pixmap(dpi=100, colorspace=fitz.csGRAY)
+                        img = Image.frombytes("L", [pix.width, pix.height], pix.samples)
+                        ocr_text = pytesseract.image_to_string(img, lang='eng')
                         text_list.append(ocr_text)
                 text = "\n".join(text_list)
+
         elif ext == ".docx":
             doc = docx.Document(file_path)
             text = "\n".join([para.text for para in doc.paragraphs if para.text])
+
         elif ext in [".jpg", ".jpeg", ".png"]:
-            text = pytesseract.image_to_string(Image.open(file_path))
+            img = Image.open(file_path).convert("L")
+            text = pytesseract.image_to_string(img, lang='eng')
+
         elif ext == ".txt":
             with open(file_path, "r", encoding="utf-8", errors='ignore') as f:
                 text = f.read()
+
     except Exception as e:
         print(f"Error extracting text from {file_path}: {e}")
         return ""  # Return empty string on failure
 
     return text
+
 
 
 # ----------- GET TITLE (Improved Logic) -----------
