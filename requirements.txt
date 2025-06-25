@@ -10,3 +10,4 @@ keybert
 sentence-transformers
 scikit-learn
 werkzeug
+gunicorn
